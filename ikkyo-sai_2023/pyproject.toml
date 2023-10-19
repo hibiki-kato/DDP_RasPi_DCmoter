@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "ikkyo-sai-2023"
+version = "0.1.0"
+description = ""
+authors = ["hibiki-kato <katohibiki17@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+rpi-gpio = "^0.7.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
