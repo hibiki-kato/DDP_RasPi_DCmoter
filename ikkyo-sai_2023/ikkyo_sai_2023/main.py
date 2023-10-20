@@ -51,12 +51,12 @@ async def main_async():
     root.mainloop()
 
 async def play_async(motor: mc.Motor, state_label: tk.Label) -> None:
-    motor.play()
     state_label.config(text="再生中", bg="green")
+    motor.play()
 
 async def stop_async(motor: mc.Motor, state_label: tk.Label) -> None:
-    motor.stop()
     state_label.config(text="停止中", bg="red")
+    motor.stop()
 
 if __name__ == "__main__":
     asyncio.run(main_async())
