@@ -1,6 +1,6 @@
 import tkinter as tk
 import MoterClass as mc
-from typing import List
+from typing import List, Tuple
 import asyncio
 
 async def main_async():
@@ -9,75 +9,53 @@ async def main_async():
 
     # モータークラスのインスタンス化
     motors: List[mc.Motor] = []
-    motors.append(mc.Motor(pins[0], "instruction.csv"))
-    motors.append(mc.Motor(pins[1], "instruction.csv"))
-    motors.append(mc.Motor(pins[2], "instruction.csv"))
-    motors.append(mc.Motor(pins[3], "instruction.csv"))
+    for i in range(4):
+        motors.append(mc.Motor(pins[i], "instruction.csv"))
 
     # GUIの作成
     root: tk.Tk = tk.Tk()
     root.title("一教祭2023")
 
     # ボタンとラベルの作成と配置
-    frame1: tk.Frame = tk.Frame(root)
-    frame1.pack(side=tk.LEFT, padx=10)
+    buttons: List[Tuple[tk.Button, tk.Button, tk.Label]] = []
+    state_labels: List[tk.Label] = []  # Store the state_label widgets in a list
+    for motor in motors:
+        frame: tk.Frame = tk.Frame(root)
+        frame.pack(side=tk.LEFT, padx=10)
 
-    state_label1: tk.Label = tk.Label(frame1, height=10, width=20, text="停止中", bg="red", font=("", 20))
-    state_label1.pack()
+        state_label: tk.Label = tk.Label(frame, height=10, width=20, text="停止中", bg="red", font=("", 20))
+        state_label.pack()
 
-    play_button1: tk.Button = tk.Button(frame1, text="再生", height=10, width=20, command=lambda: asyncio.create_task(play_async(motors[0], state_label1)), bg="green", font=("", 20))
-    play_button1.pack()
+        play_button: tk.Button = tk.Button(frame, text="再生", height=10, width=20, command=lambda m=motor, l=state_label: asyncio.create_task(play_async(m, l)), bg="green", font=("", 20))
+        play_button.pack()
 
-    stop_button1: tk.Button = tk.Button(frame1, text="停止", height=10, width=20, command=lambda: asyncio.create_task(stop_async(motors[0], state_label1)), bg="red", font=("", 20))
-    stop_button1.pack()
+        stop_button: tk.Button = tk.Button(frame, text="停止", height=10, width=20, command=lambda m=motor, l=state_label: asyncio.create_task(stop_async(m, l)), bg="red", font=("", 20))
+        stop_button.pack()
 
-    frame2: tk.Frame = tk.Frame(root)
-    frame2.pack(side=tk.LEFT, padx=10)
-
-    state_label2: tk.Label = tk.Label(frame2, height=10, width=20, text="停止中", bg="red", font=("", 20))
-    state_label2.pack()
-
-    play_button2: tk.Button = tk.Button(frame2, text="再生", height=10, width=20, command=lambda: asyncio.create_task(play_async(motors[1], state_label2)), bg="green", font=("", 20))
-    play_button2.pack()
-
-    stop_button2: tk.Button = tk.Button(frame2, text="停止", height=10, width=20, command=lambda: asyncio.create_task(stop_async(motors[1], state_label2)), bg="red", font=("", 20))
-    stop_button2.pack()
-
-    frame3: tk.Frame = tk.Frame(root)
-    frame3.pack(side=tk.LEFT, padx=10)
-
-    state_label3: tk.Label = tk.Label(frame3, height=10, width=20, text="停止中", bg="red", font=("", 20))
-    state_label3.pack()
-
-    play_button3: tk.Button = tk.Button(frame3, text="再生", height=10, width=20, command=lambda: asyncio.create_task(play_async(motors[2], state_label3)), bg="green", font=("", 20))
-    play_button3.pack()
-
-    stop_button3: tk.Button = tk.Button(frame3, text="停止", height=10, width=20, command=lambda: asyncio.create_task(stop_async(motors[2], state_label3)), bg="red", font=("", 20))
-    stop_button3.pack()
-
-    frame4: tk.Frame = tk.Frame(root)
-    frame4.pack(side=tk.LEFT, padx=10)
-
-    state_label4: tk.Label = tk.Label(frame4, height=10, width=20, text="停止中", bg="red", font=("", 20))
-    state_label4.pack()
-
-    play_button4: tk.Button = tk.Button(frame4, text="再生", height=10, width=20, command=lambda: asyncio.create_task(play_async(motors[3], state_label4)), bg="green", font=("", 20))
-    play_button4.pack()
-
-    stop_button4: tk.Button = tk.Button(frame4, text="停止", height=10, width=20, command=lambda: asyncio.create_task(stop_async(motors[3], state_label4)), bg="red", font=("", 20))
-    stop_button4.pack()
+        buttons.append((play_button, stop_button, state_label))
+        state_labels.append(state_label)  # Add the state_label widget to the list
 
     # 下に一斉再生と一斉停止のボタンを作成
-    frame5: tk.Frame = tk.Frame(root)
-    frame5.pack(side=tk.LEFT, padx=10)
-
-    play_all_button: tk.Button = tk.Button(frame5, text="一斉再生", height=10, width=20, command=lambda: [asyncio.create_task(play_async(m, l)) for (m, l) in zip(motors, [state_label1, state_label2, state_label3, state_label4])], bg="green", font=("", 20))
+    frame: tk.Frame = tk.Frame(root)
+    frame.pack(side=tk.LEFT, padx=10)
+    play_all_button: tk.Button = tk.Button(frame, text="一斉再生", height=10, width=20, command=lambda: [asyncio.create_task(play_async(m, l)) for (m, l) in zip(motors, state_labels)], bg="green", font=("", 20))
     play_all_button.pack()
-
-    stop_all_button: tk.Button = tk.Button(frame5, text="一斉停止", height=10, width=20, command=lambda: [asyncio.create_task(stop_async(m, l)) for (m, l) in zip(motors, [state_label1, state_label2, state_label3, state_label4])], bg="red", font=("", 20))
+    stop_all_button: tk.Button = tk.Button(frame, text="一斉停止", height=10, width=20, command=lambda: [asyncio.create_task(stop_async(m, l)) for (m, l) in zip(motors, state_labels)], bg="red", font=("", 20))
     stop_all_button.pack()
 
+    # GUIの更新を強制する関数
+    def update_gui():
+        for motor, state_label in zip(motors, state_labels):
+            if motor.is_playing:
+                state_label["text"] = "再生中"
+                state_label["bg"] = "green"
+            else:
+                state_label["text"] = "停止中"
+                state_label["bg"] = "red"
+        root.after(100, update_gui)
+
     # GUIの更新を開始
+    root.after(100, update_gui)
     root.mainloop()
 
 async def play_async(motor: mc.Motor, state_label: tk.Label) -> None:
