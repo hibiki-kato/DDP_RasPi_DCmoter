@@ -18,7 +18,9 @@ class Motor:
         self.pwm = GPIO.PWM(self.pin, 1000)
         self.pwm.start(0) # 0% duty cycle
         
-        self.instructions = self.read_motor_instructions(filepath)
+        self.is_playing: bool = False
+        
+        self.instructions: List[List[int]] = self.read_motor_instructions(filepath)
 
     def set_duty_cycle(self, duty_cycle: float) -> None:
         """
@@ -79,6 +81,9 @@ class Motor:
         Args:
         - instructions (List[List[float]]): A list of lists containing the motor instructions.
         """
+        if self.is_playing:
+            return
+        self.is_playing = True
         start_time = time.time()
         for instruction in self.instructions:
             timestamp = instruction[0]
