@@ -58,9 +58,13 @@ async def main_async():
     root.mainloop()
 
 async def play_async(motor: mc.Motor, state_label: tk.Label) -> None:
+    state_label["text"] = "再生中"
+    state_label["bg"] = "green"
     motor.play()
 
 async def stop_async(motor: mc.Motor, state_label: tk.Label) -> None:
+    state_label["text"] = "停止中"
+    state_label["bg"] = "red"
     motor.stop()
 
 if __name__ == "__main__":
