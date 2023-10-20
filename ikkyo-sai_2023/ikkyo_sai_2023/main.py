@@ -33,7 +33,7 @@ def main():
         play_label: tk.Label = tk.Label(frame, height=20, width=25, text="停止中", bg="red", font=("", 20))
         play_label.pack()
 
-        stop_label: tk.Label = tk.Label(frame, height=20, width=25, text="停止中", bg="red", font=("", 20)
+        stop_label: tk.Label = tk.Label(frame, height=20, width=25, text="停止中", bg="red", font=("", 20))
         stop_label.pack()
 
         buttons.append((play_button, stop_button, play_label))
