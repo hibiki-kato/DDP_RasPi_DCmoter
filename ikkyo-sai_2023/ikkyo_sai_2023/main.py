@@ -46,9 +46,11 @@ async def main_async():
         for motor, button_set in zip(motors, buttons):
             state_label = button_set[2]
             if motor.is_playing:
-                state_label.config(text="再生中", bg="green")
+                state_label["text"] = "再生中"
+                state_label["bg"] = "green"
             else:
-                state_label.config(text="停止中", bg="red")
+                state_label["text"] = "停止中"
+                state_label["bg"] = "red"
         root.after(100, update_gui)
 
     # GUIの更新を開始
@@ -56,11 +58,9 @@ async def main_async():
     root.mainloop()
 
 async def play_async(motor: mc.Motor, state_label: tk.Label) -> None:
-    state_label.config(text="再生中", bg="green")
     motor.play()
 
 async def stop_async(motor: mc.Motor, state_label: tk.Label) -> None:
-    state_label.config(text="停止中", bg="red")
     motor.stop()
 
 if __name__ == "__main__":
