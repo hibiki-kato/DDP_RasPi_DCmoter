@@ -15,7 +15,6 @@ def main():
 
     # GUIの作成
     root: tk.Tk = tk.Tk()
-    root.state("zoomed")
     root.title("一教祭2023")
 
     # ボタンとラベルの作成と配置
