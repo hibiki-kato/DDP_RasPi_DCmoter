@@ -14,11 +14,11 @@ async def main_async():
 
     # GUIの作成
     root: tk.Tk = tk.Tk()
+    root.mainloop()
     root.title("一教祭2023")
 
     # ボタンとラベルの作成と配置
     buttons: List[Tuple[tk.Button, tk.Button, tk.Label]] = []
-    state_labels: List[tk.Label] = []  # Store the state_label widgets in a list
     for motor in motors:
         frame: tk.Frame = tk.Frame(root)
         frame.pack(side=tk.LEFT, padx=10)
@@ -33,19 +33,19 @@ async def main_async():
         stop_button.pack()
 
         buttons.append((play_button, stop_button, state_label))
-        state_labels.append(state_label)  # Add the state_label widget to the list
 
     # 下に一斉再生と一斉停止のボタンを作成
     frame: tk.Frame = tk.Frame(root)
     frame.pack(side=tk.LEFT, padx=10)
-    play_all_button: tk.Button = tk.Button(frame, text="一斉再生", height=10, width=20, command=lambda: [asyncio.create_task(play_async(m, l)) for (m, l) in zip(motors, state_labels)], bg="green", font=("", 20))
+    play_all_button: tk.Button = tk.Button(frame, text="一斉再生", height=10, width=20, command=lambda: [asyncio.create_task(play_async(m, l[2])) for (m, l) in zip(motors, buttons)], bg="green", font=("", 20))
     play_all_button.pack()
-    stop_all_button: tk.Button = tk.Button(frame, text="一斉停止", height=10, width=20, command=lambda: [asyncio.create_task(stop_async(m, l)) for (m, l) in zip(motors, state_labels)], bg="red", font=("", 20))
+    stop_all_button: tk.Button = tk.Button(frame, text="一斉停止", height=10, width=20, command=lambda: [asyncio.create_task(stop_async(m, l[2])) for (m, l) in zip(motors, buttons)], bg="red", font=("", 20))
     stop_all_button.pack()
 
     # GUIの更新を強制する関数
     def update_gui():
-        for motor, state_label in zip(motors, state_labels):
+        for motor, button_set in zip(motors, buttons):
+            state_label = button_set[2]
             if motor.is_playing:
                 state_label["text"] = "再生中"
                 state_label["bg"] = "green"
@@ -56,7 +56,6 @@ async def main_async():
 
     # GUIの更新を開始
     root.after(100, update_gui)
-    root.mainloop()
 
 async def play_async(motor: mc.Motor, state_label: tk.Label) -> None:
     state_label["text"] = "再生中"
