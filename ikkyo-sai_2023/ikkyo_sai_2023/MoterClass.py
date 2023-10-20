@@ -70,7 +70,7 @@ class Motor:
                 instructions.append([float(x) for x in row])
         return instructions
 
-    def run_motor(self) -> None:
+    def play(self) -> None:
         """
         Run the motor according to the instructions.
 
