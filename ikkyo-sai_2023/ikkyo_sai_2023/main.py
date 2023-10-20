@@ -35,7 +35,7 @@ async def main_async():
         play_button: tk.Button = tk.Button(frame, text="再生", height=10, width=10, command=lambda m=motor: asyncio.create_task(play_async(m, state_label, stop_label)), bg="green", font=("", 20))
         play_button.pack()
 
-        stop_button: tk.Button = tk.Button(frame, text="停止",height=10, width=15, command=lambda m=motor: asyncio.create_task(stop_async(m, state_label, stop_label)), bg="red", font=("", 20))
+        stop_button: tk.Button = tk.Button(frame, text="停止",height=10, width=10, command=lambda m=motor: asyncio.create_task(stop_async(m, state_label, stop_label)), bg="red", font=("", 20))
         stop_button.pack()
 
         state_label: tk.Label = tk.Label(frame, height=10, width=10, text="停止中", bg="red", font=("", 20))
