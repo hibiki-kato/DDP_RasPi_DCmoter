@@ -23,20 +23,18 @@ def main():
     for motor in moters:
         frame: tk.Frame = tk.Frame(root)
         frame.pack(side=tk.LEFT, padx=10)
-
-        play_button: tk.Button = tk.Button(frame, text="再生", command=lambda m=motor: play(m, play_label, stop_label))
+        
+        play_button: tk.Button = tk.Button(frame, text="再生", height=200, width=250, command=lambda m=motor: play(m, play_label, stop_label), bg="green")
         play_button.pack()
 
-        stop_button: tk.Button = tk.Button(frame, text="停止", command=lambda m=motor: stop(m, play_label, stop_label))
+        stop_button: tk.Button = tk.Button(frame, text="停止",height=200, width=250  command=lambda m=motor: stop(m, play_label, stop_label), bg="red")
         stop_button.pack()
 
-        play_label: tk.Label = tk.Label(frame, text="停止中")
+        play_label: tk.Label = tk.Label(frame, height=200, width=250 text="停止中", bg="red")
         play_label.pack()
 
-        stop_label: tk.Label = tk.Label(frame, text="")
-        stop_label.pack()
 
-        buttons.append((play_button, stop_button, play_label, stop_label))
+        buttons.append((play_button, stop_button, play_label))
         
     # メインループ
     tk.mainloop()
@@ -44,14 +42,12 @@ def main():
 def play(motor: mc.Motor, play_label: tk.Label, stop_label: tk.Label) -> None:
     motor.play()
     motor.is_playing = True
-    play_label.config(text="再生中")
-    stop_label.config(text="")
+    play_label.config(text="再生中", bg="green")
 
 def stop(motor: mc.Motor, play_label: tk.Label, stop_label: tk.Label) -> None:
     motor.stop()
     motor.is_playing = False
-    play_label.config(text="停止中")
-    stop_label.config(text="停止中")
+    play_label.config(text="停止中", bg="red")
     
 if __name__ == "__main__":
     main()
