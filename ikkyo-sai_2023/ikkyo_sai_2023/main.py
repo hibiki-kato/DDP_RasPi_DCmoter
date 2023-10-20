@@ -15,7 +15,7 @@ def main():
 
     # GUIの作成
     root: tk.Tk = tk.Tk()
-    root.geometry("1200x900")
+    root.state("zoomed")
     root.title("一教祭2023")
 
     # ボタンとラベルの作成と配置
@@ -24,22 +24,21 @@ def main():
         frame: tk.Frame = tk.Frame(root)
         frame.pack(side=tk.LEFT, padx=10)
         
-        play_button: tk.Button = tk.Button(frame, text="再生", height=20, width=25, command=lambda m=motor: play(m, play_label, stop_label), bg="green", font=("", 20))
+        play_button: tk.Button = tk.Button(frame, text="再生", height=10, width=10, command=lambda m=motor: play(m, play_label, stop_label), bg="green", font=("", 20))
         play_button.pack()
 
-        stop_button: tk.Button = tk.Button(frame, text="停止",height=20, width=25, command=lambda m=motor: stop(m, play_label, stop_label), bg="red", font=("", 20))
+        stop_button: tk.Button = tk.Button(frame, text="停止",height=10, width=15, command=lambda m=motor: stop(m, play_label, stop_label), bg="red", font=("", 20))
         stop_button.pack()
 
-        play_label: tk.Label = tk.Label(frame, height=20, width=25, text="停止中", bg="red", font=("", 20))
+        play_label: tk.Label = tk.Label(frame, height=10, width=10, text="停止中", bg="red", font=("", 20))
         play_label.pack()
 
-        stop_label: tk.Label = tk.Label(frame, height=20, width=25, text="停止中", bg="red", font=("", 20))
+        stop_label: tk.Label = tk.Label(frame, height=10, width=10, text="停止中", bg="red", font=("", 20))
         stop_label.pack()
 
         buttons.append((play_button, stop_button, play_label))
         
-    # メインループ
-    tk.mainloop()
+    root.mainloop()
 
 def play(motor: mc.Motor, play_label: tk.Label, stop_label: tk.Label) -> None:
     motor.play()
@@ -51,4 +50,3 @@ def stop(motor: mc.Motor, play_label: tk.Label, stop_label: tk.Label) -> None:
     
 if __name__ == "__main__":
     main()
-
