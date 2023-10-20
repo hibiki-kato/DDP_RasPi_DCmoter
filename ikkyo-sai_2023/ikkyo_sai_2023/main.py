@@ -21,3 +21,7 @@ for i in range(4):
     reset_button.pack()
 
     buttons.append((play_button, pause_button, reset_button))
+    
+    # BEGIN: 8zj5t3d7f2q1
+    root.mainloop()
+    # END: 8zj5t3d7f2q1
