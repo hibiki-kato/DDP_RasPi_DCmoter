@@ -24,16 +24,16 @@ def main():
         frame: tk.Frame = tk.Frame(root)
         frame.pack(side=tk.LEFT, padx=10)
         
-        play_button: tk.Button = tk.Button(frame, text="再生", height=200, width=250, command=lambda m=motor: play(m, play_label, stop_label), bg="green")
+        play_button: tk.Button = tk.Button(frame, text="再生", height=20, width=25, command=lambda m=motor: play(m, play_label, stop_label), bg="green", font=("", 20))
         play_button.pack()
 
-        stop_button: tk.Button = tk.Button(frame, text="停止",height=200, width=250, command=lambda m=motor: stop(m, play_label, stop_label), bg="red")
+        stop_button: tk.Button = tk.Button(frame, text="停止",height=20, width=25, command=lambda m=motor: stop(m, play_label, stop_label), bg="red", font=("", 20))
         stop_button.pack()
 
-        play_label: tk.Label = tk.Label(frame, height=200, width=250, text="停止中", bg="red")
+        play_label: tk.Label = tk.Label(frame, height=20, width=25, text="停止中", bg="red", font=("", 20))
         play_label.pack()
 
-        stop_label: tk.Label = tk.Label(frame, height=200, width=250, text="停止中", bg="red")
+        stop_label: tk.Label = tk.Label(frame, height=20, width=25, text="停止中", bg="red", font=("", 20)
         stop_label.pack()
 
         buttons.append((play_button, stop_button, play_label))
