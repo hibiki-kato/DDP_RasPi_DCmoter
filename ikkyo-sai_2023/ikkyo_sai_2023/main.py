@@ -1,6 +1,6 @@
 import time
 import tkinter as tk
-
+from typing import List, Tuple
 
 # GUIの作成
 root: tk.Tk = tk.Tk()
