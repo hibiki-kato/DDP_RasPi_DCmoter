@@ -1,5 +1,6 @@
 import csv
 import time
+import RPi.GPIO as GPIO
 from typing import List
 
 class Motor:
