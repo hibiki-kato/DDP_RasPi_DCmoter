@@ -19,14 +19,14 @@ root.title("一教祭2023")
 
 # ボタンの作成と配置
 buttons: List[Tuple[tk.Button, tk.Button]] = []
-for i in moters:
+for motor in moters:
     frame: tk.Frame = tk.Frame(root)
     frame.pack(side=tk.LEFT, padx=10)
 
-    play_button: tk.Button = tk.Button(frame, text="再生", width=10, height=5, command =i.play())
+    play_button: tk.Button = tk.Button(frame, text="再生", width=10, height=5, command = motor.play())
     play_button.pack()
 
-    reset_button: tk.Button = tk.Button(frame, text="リセット", width=10, height=5, command = i.stop())
+    reset_button: tk.Button = tk.Button(frame, text="リセット", width=10, height=5, command = motor.stop())
     reset_button.pack()
 
     buttons.append((play_button, reset_button))

@@ -65,8 +65,10 @@ class Motor:
         """
         with open(filepath, 'r') as f:
             reader = csv.reader(f)
-            instructions = []
+            instructions:List[List[float]] = []
             for row in reader:
+                if len(row) != 3:
+                    raise ValueError("Each row in the CSV file must have exactly 3 elements.")
                 instructions.append([float(x) for x in row])
         return instructions
 
