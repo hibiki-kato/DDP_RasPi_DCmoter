@@ -23,10 +23,10 @@ for i in moters:
     frame: tk.Frame = tk.Frame(root)
     frame.pack(side=tk.LEFT, padx=10)
 
-    play_button: tk.Button = tk.Button(frame, text="再生", width=10, height=5, command = moters[i].play())
+    play_button: tk.Button = tk.Button(frame, text="再生", width=10, height=5, command =i.play())
     play_button.pack()
 
-    reset_button: tk.Button = tk.Button(frame, text="リセット", width=10, height=5, command = moters[i].stop()
+    reset_button: tk.Button = tk.Button(frame, text="リセット", width=10, height=5, command = i.stop())
     reset_button.pack()
 
     buttons.append((play_button, reset_button))
