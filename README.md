@@ -8,10 +8,13 @@ The implementation involves setting up a Python environment and installing packa
 - For Raspberry PI OS (64bit, GUI):
     1. Run `setup.sh` for the first time to set up the Python environment.
     2. Run `poetry install` in ikkyo-sai_2023
+    3. Run `cd ikkyo-sai_2023` and `poetry run python main.py` to start the program.
+
 - For the development environment using Debian (bullseye) on Docker:
     1. A shell script should be executed every time the container is started.
     2. Do the same as above.
 
-## 
+## Usage
+
 
 

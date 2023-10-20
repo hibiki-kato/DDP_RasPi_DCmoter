@@ -40,14 +40,12 @@ echo 1 | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.
 curl -sSL https://install.python-poetry.org | python3 -
 
 # Add Poetry to PATH
-echo 'export PATH="$HOME/.poetry/bin:$PATH"' >> ~/.bashrc
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 
 # set up python virtual environment in poetry
 poetry config virtualenvs.in-project true
 poetry config virtualenvs.create true
-
-cd ikkyo-sai_2023
 
 
 
