@@ -27,12 +27,14 @@ def main():
         play_button: tk.Button = tk.Button(frame, text="再生", height=200, width=250, command=lambda m=motor: play(m, play_label, stop_label), bg="green")
         play_button.pack()
 
-        stop_button: tk.Button = tk.Button(frame, text="停止",height=200, width=250  command=lambda m=motor: stop(m, play_label, stop_label), bg="red")
+        stop_button: tk.Button = tk.Button(frame, text="停止",height=200, width=250, command=lambda m=motor: stop(m, play_label, stop_label), bg="red")
         stop_button.pack()
 
-        play_label: tk.Label = tk.Label(frame, height=200, width=250 text="停止中", bg="red")
+        play_label: tk.Label = tk.Label(frame, height=200, width=250, text="停止中", bg="red")
         play_label.pack()
 
+        stop_label: tk.Label = tk.Label(frame, height=200, width=250, text="停止中", bg="red")
+        stop_label.pack()
 
         buttons.append((play_button, stop_button, play_label))
         
@@ -41,12 +43,10 @@ def main():
 
 def play(motor: mc.Motor, play_label: tk.Label, stop_label: tk.Label) -> None:
     motor.play()
-    motor.is_playing = True
     play_label.config(text="再生中", bg="green")
 
 def stop(motor: mc.Motor, play_label: tk.Label, stop_label: tk.Label) -> None:
     motor.stop()
-    motor.is_playing = False
     play_label.config(text="停止中", bg="red")
     
 if __name__ == "__main__":
